@@ -1,0 +1,18 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+#homepage:
+#    path: /
+#    controller: App\Controller\HomeController::index
+#
+#Courspage:
+#    path: /listCour
+#    controller: App\Controller\CourController::new
+#
+#registrationpage:
+#    path: /registration
+#    controller: App\Controller\RegistrationController::register
+#
+#confirmationpage:
+#    path: /confirmation
+#    controller: App\Controller\RegistrationController::verifyUserEmail

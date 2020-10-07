@@ -1,0 +1,11 @@
+swiftmailer:
+    # transport: stmp
+    username: 3ce8e5bc77e840d4b25d9521f5f7603a
+    password: a790b6cebf933bb9c3483c20daea900f
+    auth_mode: login
+    disable_delivery: false
+    encryption: ssl
+    port: 465
+    host: in-v3.mailjet.com
+    url: '%env(MAILER_URL)%'
+    spool: { type: 'memory' }
