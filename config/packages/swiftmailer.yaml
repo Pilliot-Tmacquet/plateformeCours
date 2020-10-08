@@ -7,5 +7,5 @@ swiftmailer:
     encryption: ssl
     port: 465
     host: in-v3.mailjet.com
-    url: '%env(MAILER_URL)%'
+#    url: '%env(MAILER_URL)%'
     spool: { type: 'memory' }

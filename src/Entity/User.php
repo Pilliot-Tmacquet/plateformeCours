@@ -26,15 +26,16 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="string", length=180, )
      */
-    private $roles = [];
+    private $roles_id ;
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
     private $password;
+
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -45,6 +46,14 @@ class User implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $isVerified = false;
+
+
+
+    /** * {@inheritdoc} */ public function getRoles(): array { return $this->roles_id; }
+    /** * {@inheritdoc} */ public function getPassword(): ?string { return $this->password; }
+    /** * {@inheritdoc} */ public function getSalt(): ?string { return null; }
+    /** * {@inheritdoc} */ public function getUsername(): string { return $this->username; }
+    /** * {@inheritdoc} */ public function eraseCredentials() { }
 
     public function getId(): ?int
     {
@@ -63,41 +72,11 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
-    public function getUsername(): string
+    public function setRoles(string $roles): self
     {
-        return (string) $this->email;
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function getRoles(): array
-    {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
-    }
-
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
+        $this->roles_id = $roles;
 
         return $this;
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function getPassword(): string
-    {
-        return (string) $this->password;
     }
 
     public function setPassword(string $password): self
@@ -107,23 +86,6 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getSalt()
-    {
-        // not needed when using the "bcrypt" algorithm in security.yaml
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function eraseCredentials()
-    {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
-    }
-
     public function setUsername(string $username): self
     {
         $this->username = $username;
@@ -131,7 +93,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function isVerified(): bool
+    public function getIsVerified(): ?bool
     {
         return $this->isVerified;
     }
