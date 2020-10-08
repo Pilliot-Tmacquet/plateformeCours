@@ -53,13 +53,13 @@ class RegistrationController extends AbstractController
 //                    ->subject('Please Confirm your Email')
 //                    ->htmlTemplate('registration/confirmation_email.html.twig')
 //            );
-            $signedUrl= $this->renderView('http://127.0.0.1:8000/confirmation/email?role=ROLE_USER&user='.$this->getUser());
+            $signedUrl= 'app_verify_email';
             $expiresAt =new \DateTime();
             $message=(new \Swift_Message())
                 ->setfrom('hello@example.com')
                 ->setto('macquet.theodore@gmail.com')
                 ->setsubject('Time for Symfony Mailer!')
-                ->setBody(  $this->renderView('registration/confirmation_email.html.twig', array('signedUrl'=> $signedUrl,'expiresAt'=>$expiresAt)),'text/html');
+                ->setBody(  $this->renderView('registration/confirmation_email.html.twig', array('expiresAt'=>$expiresAt,'user'=>$this->getUser(),'role'=>'ROLE_USER')),'text/html');
             // do anything else you need here, like send an email
             $mailer->send($message);
 //            return $this->redirectToRoute('homepage');
@@ -70,11 +70,12 @@ class RegistrationController extends AbstractController
     }
 
     /**
-     * @Route("/confirmation/email", name="app_verify_email")
+     * @Route("/confirmation/email/{role}/{user}", name="app_verify_email")
      */
     public function verifyUserEmail(Request $request): Response
     {
         dump($request->get('role'));
+        dump($request->get('user'));
         dd();
         $this->denyAccessUnlessGranted('ROLE_USER');
 
